@@ -30,6 +30,48 @@ The model selection process follows a standard cross-validation methodology:
 
 ---
 
+## The Math Behind the Model 🤓
+
+The model is built on three core mathematical concepts from machine learning.
+
+### 1. The Hypothesis Function ($h(x)$)
+
+This is the equation the model uses to make predictions. For a polynomial of degree **d**, the hypothesis is a function that maps an input feature `x` to a predicted output `y`.
+
+$$ h(x) = w_1x^1 + w_2x^2 + \dots + w_dx^d + b $$
+
+* The **weights (`w`)** control the shape of the curve.
+* The **bias (`b`)** shifts the curve up or down.
+* The goal of training is to find the optimal values for `w` and `b`.
+
+### 2. The Cost Function ($J$)
+
+To measure how well the model is performing, we use the **Mean Squared Error (MSE)** cost function. It calculates the average squared difference between the predicted value ($h(x)$) and the actual value ($y$).
+
+$$ J(w, b) = \frac{1}{2m} \sum_{i=1}^{m} (h(x^{(i)}) - y^{(i)})^2 $$
+
+* `m` is the number of training examples.
+* The model's objective is to find the values of `w` and `b` that **minimize** this cost function.
+
+### 3. The Optimization Algorithm: Gradient Descent
+
+Gradient descent is an iterative algorithm used to find the minimum of the cost function. The intuition is to repeatedly take small steps in the direction of the steepest descent—like walking down a hill until you reach the bottom.
+
+
+
+The update rule for each parameter (`w_k` and `b`) is:
+
+$$ \text{parameter} := \text{parameter} - \alpha \cdot (\text{gradient}) $$
+
+* `\alpha` is the **learning rate**, which controls the size of each step.
+* The **gradient** is the partial derivative of the cost function, which tells us the direction of the steepest ascent. We subtract it to move downhill. The specific derivatives are:
+    * For the bias `b`: $\frac{\partial J}{\partial b} = \frac{1}{m} \sum (h(x^{(i)}) - y^{(i)})$
+    * For a weight `w_k`: $\frac{\partial J}{\partial w_k} = \frac{1}{m} \sum (h(x^{(i)}) - y^{(i)}) \cdot x_k^{(i)}$
+
+These formulas are calculated at each step to iteratively improve the model's parameters.
+
+---
+
 ## Getting Started
 
 To get a local copy up and running, follow these simple steps.
@@ -69,7 +111,6 @@ data = [
 # Set the learning rate and kick off the process
 alpha = 0.0001
 find_best_degree(data, alpha, max_degree_to_test=8)
-
 ```
 
 ---
@@ -107,4 +148,14 @@ Finally, it will display a plot showing how the validation error changes with th
 
 ## License
 
-Distributed under the MIT License. See `LICENSE` for more information.
+Distributed under the MIT License.
+
+### What this means:
+
+The **MIT License** is a permissive open-source license. In simple terms, it means you have the freedom to:
+
+* **Use**: Use the code for any purpose, including commercial projects.
+* **Modify**: Change the code to suit your needs.
+* **Distribute**: Share the original or modified code with others.
+
+The only major requirement is that you must include the original copyright notice and a copy of the license text in your project. The code is provided "as-is," without any warranty.
